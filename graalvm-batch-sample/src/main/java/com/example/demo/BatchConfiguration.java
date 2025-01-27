@@ -8,18 +8,22 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 @Configuration
 public class BatchConfiguration {
 
+	@Value("${csv.file.directory}")
+	private String csvDirectoryPath;
+	
 	@Bean
 	public FlatFileItemReader<Member> itemReader() {
 		return new FlatFileItemReaderBuilder<Member>().name("personItemReader")
-				.resource(new ClassPathResource("member.csv")).linesToSkip(1).delimited()
+				.resource(new FileSystemResource(this.csvDirectoryPath + "/member.csv")).linesToSkip(1).delimited()
 				.names("id", "firstName", "lastName").targetType(Member.class).build();
 	}
 
