@@ -1,0 +1,6 @@
+access_key = ""
+secret_key = ""
+region = ""
+source_ami = ""
+vpc_id = ""
+subnet_id = ""
