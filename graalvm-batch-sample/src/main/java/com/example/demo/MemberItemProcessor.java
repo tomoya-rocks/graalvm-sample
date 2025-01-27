@@ -8,7 +8,13 @@ public class MemberItemProcessor implements ItemProcessor<Member, FullNameMember
 	public FullNameMember process(Member item) throws Exception {
 		String fullName = item.getFirstName() + " " + item.getLastName();
 
-		return new FullNameMember(item.getId(), item.getFirstName(), item.getLastName(), fullName);
+		FullNameMember fullNameMember = new FullNameMember();
+		fullNameMember.setId(item.getId());
+		fullNameMember.setFirstName(item.getFirstName());
+		fullNameMember.setLastName(item.getLastName());
+		fullNameMember.setFullName(fullName);
+
+		return fullNameMember;
 	}
 
 }

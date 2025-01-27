@@ -2,35 +2,47 @@ package com.example.demo;
 
 public class FullNameMember {
 
-	private final String id;
+	private String id;
 
-	private final String firstName;
+	private String firstName;
 
-	private final String lastName;
+	private String lastName;
 
-	private final String fullName;
+	private String fullName;
 
-	public FullNameMember(String id, String firstName, String lastName, String fullName) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.fullName = fullName;
+	public FullNameMember() {
 	}
 
 	public String getId() {
 		return id;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
 	public String getFullName() {
 		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 }
