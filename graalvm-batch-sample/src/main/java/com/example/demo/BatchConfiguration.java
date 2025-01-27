@@ -32,8 +32,8 @@ public class BatchConfiguration {
 	public ItemWriter<FullNameMember> writer() {
 		return chunk -> {
 			for (FullNameMember fullNameMember : chunk) {
-				System.out.println(fullNameMember.id() + ":" + fullNameMember.firstName() + ":"
-						+ fullNameMember.lastName() + ":" + fullNameMember.fullName());
+				System.out.println(fullNameMember.getId() + ":" + fullNameMember.getFirstName() + ":"
+						+ fullNameMember.getLastName() + ":" + fullNameMember.getFullName());
 			}
 		};
 	}

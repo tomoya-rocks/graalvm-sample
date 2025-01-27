@@ -6,9 +6,9 @@ public class MemberItemProcessor implements ItemProcessor<Member, FullNameMember
 
 	@Override
 	public FullNameMember process(Member item) throws Exception {
-		String fullName = item.firstName() + " " + item.lastName();
+		String fullName = item.getFirstName() + " " + item.getLastName();
 
-		return new FullNameMember(item.id(), item.firstName(), item.lastName(), fullName);
+		return new FullNameMember(item.getId(), item.getFirstName(), item.getLastName(), fullName);
 	}
 
 }
