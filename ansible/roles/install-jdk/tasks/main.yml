@@ -7,7 +7,7 @@
 
 - name: Download JDK archive
   ansible.builtin.get_url:
-    url: "{{ jdk_url }}"
+    url: https://download.java.net/java/GA/jdk21.0.2/f2283984656d49d69e91c558476027ac/13/GPL/openjdk-21.0.2_linux-x64_bin.tar.gz
     dest: /tmp/
   when:
     - result.stat.exists == false
@@ -16,7 +16,7 @@
 
 - name: Unarchive JDK archive
   ansible.builtin.unarchive:
-    src: "/tmp/{{ jdk_file_name }}"
+    src: "/tmp/openjdk-21.0.2_linux-x64_bin.tar.gz"
     dest: /usr/local/
     owner: root
     group: root
@@ -28,7 +28,7 @@
 
 - name: Create symbolic link to JDK
   ansible.builtin.file:
-    src: "/usr/local/{{ jdk_directory_name }}"
+    src: /usr/local/jdk-21.0.2
     dest: /usr/local/java
     state: link
     owner: root

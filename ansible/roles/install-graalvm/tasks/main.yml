@@ -7,7 +7,7 @@
 
 - name: Download GraalVM archive
   ansible.builtin.get_url:
-    url: "{{ graalvm_url }}"
+    url: https://download.oracle.com/graalvm/21/latest/graalvm-jdk-21_linux-x64_bin.tar.gz
     dest: /tmp/
   when:
     - result.stat.exists == false
@@ -16,7 +16,7 @@
 
 - name: Unarchive GraalVM archive
   ansible.builtin.unarchive:
-    src: "/tmp/{{ graalvm_file_name }}"
+    src: /tmp/graalvm-jdk-21_linux-x64_bin.tar.gz
     dest: /usr/local/
     owner: root
     group: root
@@ -28,7 +28,7 @@
 
 - name: Create symbolic link to GraalVM
   ansible.builtin.file:
-    src: "/usr/local/{{ graalvm_directory_name }}"
+    src: /usr/local/graalvm-jdk-21.0.6+8.1
     dest: /usr/local/graalvm
     state: link
     owner: root

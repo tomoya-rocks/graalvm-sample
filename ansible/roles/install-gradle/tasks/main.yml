@@ -7,7 +7,7 @@
 
 - name: Download Gradle archive
   ansible.builtin.get_url:
-    url: "{{ gradle_url }}"
+    url: https://github.com/gradle/gradle-distributions/releases/download/v8.12.0/gradle-8.12-bin.zip
     dest: /tmp/
   when:
     - result.stat.exists == false
@@ -16,7 +16,7 @@
 
 - name: Unarchive Gradle archive
   ansible.builtin.unarchive:
-    src: "/tmp/{{ gradle_file_name }}"
+    src: /tmp/gradle-8.12-bin.zip
     dest: /usr/local/
     owner: root
     group: root
@@ -28,7 +28,7 @@
 
 - name: Create symbolic link to Gradle
   ansible.builtin.file:
-    src: "/usr/local/{{ gradle_directory_name }}"
+    src: /usr/local/gradle-8.12
     dest: /usr/local/gradle
     state: link
     owner: root
