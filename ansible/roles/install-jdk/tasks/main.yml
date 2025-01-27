@@ -1,0 +1,47 @@
+- name: Check whether JDK is installed.
+  ansible.builtin.stat:
+    path: /usr/local/java
+  register: result
+  tags:
+    - install-jdk
+
+- name: Download JDK archive
+  ansible.builtin.get_url:
+    url: "{{ jdk_url }}"
+    dest: /tmp/
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-jdk
+
+- name: Unarchive JDK archive
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ jdk_file_name }}"
+    dest: /usr/local/
+    owner: root
+    group: root
+    remote_src: true
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-jdk
+
+- name: Create symbolic link to JDK
+  ansible.builtin.file:
+    src: "/usr/local/{{ jdk_directory_name }}"
+    dest: /usr/local/java
+    state: link
+    owner: root
+    group: root
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-jdk
+
+- name: Remove old java command
+  ansible.builtin.file:
+    path: /usr/bin/java
+    state: absent
+  tags:
+    - install-jdk
+

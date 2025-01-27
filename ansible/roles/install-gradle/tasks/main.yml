@@ -1,0 +1,49 @@
+- name: Check whether Gradle is installed.
+  ansible.builtin.stat:
+    path: /usr/local/gradle
+  register: result
+  tags:
+    - install-gradle
+
+- name: Download Gradle archive
+  ansible.builtin.get_url:
+    url: "{{ gradle_url }}"
+    dest: /tmp/
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-gradle
+
+- name: Unarchive Gradle archive
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ gradle_file_name }}"
+    dest: /usr/local/
+    owner: root
+    group: root
+    remote_src: true
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-gradle
+
+- name: Create symbolic link to Gradle
+  ansible.builtin.file:
+    src: "/usr/local/{{ gradle_directory_name }}"
+    dest: /usr/local/gradle
+    state: link
+    owner: root
+    group: root
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-gradle
+
+- name: Copy profile for Gradle command
+  copy:
+    src: gradle.sh
+    dest: /etc/profile.d/
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - install-gradle

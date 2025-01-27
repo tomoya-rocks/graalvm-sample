@@ -1,0 +1,49 @@
+- name: Check whether GraalVM is installed.
+  ansible.builtin.stat:
+    path: /usr/local/graalvm
+  register: result
+  tags:
+    - install-graalvm
+
+- name: Download GraalVM archive
+  ansible.builtin.get_url:
+    url: "{{ graalvm_url }}"
+    dest: /tmp/
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-graalvm
+
+- name: Unarchive GraalVM archive
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ graalvm_file_name }}"
+    dest: /usr/local/
+    owner: root
+    group: root
+    remote_src: true
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-graalvm
+
+- name: Create symbolic link to GraalVM
+  ansible.builtin.file:
+    src: "/usr/local/{{ graalvm_directory_name }}"
+    dest: /usr/local/graalvm
+    state: link
+    owner: root
+    group: root
+  when:
+    - result.stat.exists == false
+  tags:
+    - install-graalvm
+
+- name: Copy profile for java command
+  copy:
+    src: java.sh
+    dest: /etc/profile.d/
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - install-graalvm
