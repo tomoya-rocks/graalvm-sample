@@ -12,3 +12,10 @@ build
 
 # Ignore h2db directory
 h2db
+
+# Ignore vscode directory
+.vscode
+
+# Ignore credential files
+ansible/hosts
+packer/variables.pkr.hcl
