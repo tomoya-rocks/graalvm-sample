@@ -1,0 +1,5 @@
+rootProject.name = 'graalvm-sample'
+
+include 'graalvm-web-sample'
+include 'graalvm-batch-sample'
+
