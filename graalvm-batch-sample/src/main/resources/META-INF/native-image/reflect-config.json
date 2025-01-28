@@ -1,0 +1,17 @@
+[
+  {
+    "name": "org.springframework.batch.item.support.AbstractItemCountingItemStreamItemReader",
+    "methods": [
+      {
+        "name": "close",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.example.demo.Member",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true,
+    "allDeclaredFields": true
+  }
+]
