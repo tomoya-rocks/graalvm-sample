@@ -24,8 +24,7 @@ public class BatchConfiguration {
 	public FlatFileItemReader<Member> itemReader() {
 		return new FlatFileItemReaderBuilder<Member>().name("personItemReader")
 				.resource(new FileSystemResource(this.csvDirectoryPath + "/member.csv")).linesToSkip(1).delimited()
-				.names("id", "firstName", "lastName").fieldSetMapper(fieldSet -> new Member(fieldSet.readString("id"),
-						fieldSet.readString("firstName"), fieldSet.readString("lastName")))
+				.names("id", "firstName", "lastName").targetType(Member.class)
 				.build();
 	}
 
